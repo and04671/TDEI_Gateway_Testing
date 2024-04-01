@@ -83,7 +83,7 @@ Here's a brief explanation of each file and directory in the given list:
    To run a specific test file:
 
    ```bash
-   pytest tests/test_utilities.py
+   pytest tests/test_utilities-clifford.py
    ```
 
 3. **Review the test output:**

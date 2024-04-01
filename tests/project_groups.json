@@ -1,0 +1,129 @@
+[
+  {
+    "tdei_project_group_id": "f26ff9a4-b25c-407b-bb1e-1708d335f0ba",
+    "project_group_name": "Bashirian - Erdman",
+    "phone": "973-796-7456",
+    "url": "https://rosy-feng.com",
+    "address": "294 Quincy Key, LA, Russian Federation",
+    "polygon": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  75.937111,
+                  13.375561
+                ],
+                [
+                  76.212722,
+                  14.501452
+                ],
+                [
+                  73.205814,
+                  12.158479
+                ],
+                [
+                  72.664558,
+                  14.280078
+                ],
+                [
+                  75.937111,
+                  13.375561
+                ]
+              ]
+            ]
+          },
+          "properties": {}
+        }
+      ]
+    },
+    "poc": [
+      {
+        "first_name": "Madisen",
+        "last_name": "Hettinger",
+        "username": "margaretta62@hotmail.com",
+        "email": "margaretta62@hotmail.com"
+      }
+    ]
+  },
+  {
+    "tdei_project_group_id": "0c2e6ce3-9421-4f67-95af-6a9843ded5cf",
+    "project_group_name": "Glover, Goodwin and Stoltenberg",
+    "phone": "611-047-2614",
+    "url": "https://pleasing-chiffonier.info",
+    "address": "9316 Millie Harbor, TN, Latvia",
+    "polygon": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  77.51579,
+                  13.822429
+                ],
+                [
+                  75.467742,
+                  14.330976
+                ],
+                [
+                  77.614462,
+                  14.497294
+                ],
+                [
+                  76.593932,
+                  12.834429
+                ],
+                [
+                  77.51579,
+                  13.822429
+                ]
+              ]
+            ]
+          },
+          "properties": {}
+        }
+      ]
+    },
+    "poc": [
+      {
+        "first_name": "Mittie",
+        "last_name": "Kuhlman",
+        "username": "sherwood_bogan14@yahoo.com",
+        "email": "sherwood_bogan14@yahoo.com"
+      }
+    ]
+  },
+  {
+    "tdei_project_group_id": "a6f1656d-01ab-4a14-a132-8ee1c6b2303c",
+    "project_group_name": "Test Project Group 1",
+    "phone": "8142595530",
+    "url": "http://www.example.org/authority",
+    "address": "1523 Kensington way, CA",
+    "polygon": null,
+    "poc": []
+  },
+  {
+    "tdei_project_group_id": "6de6b187-4e21-4a14-8526-027e2b866395",
+    "project_group_name": "Workspaces Testing",
+    "phone": "0001112222",
+    "url": "www.workspaces.tdei.com",
+    "address": "Seattle, WA",
+    "polygon": null,
+    "poc": [
+      {
+        "first_name": "Cy",
+        "last_name": "Rossignol",
+        "username": "cyro@uw.edu",
+        "email": "cyro@uw.edu"
+      }
+    ]
+  }
+]

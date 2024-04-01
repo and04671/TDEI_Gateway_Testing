@@ -26,6 +26,15 @@ base_url = "https://tdei-gateway-stage.azurewebsites.net"
    # response = requests.post(refresh_url, headers=headers)
     #return response.json()['new_token']
 
+#def authenticate(username, password):
+ #   url = BASE_URL + AUTH_ENDPOINT
+  #  credentials = {'username': username, 'password': password}
+  #  headers = {'accept': 'application/json', 'Content-Type': 'application/json'}
+   # response = requests.post(url, data=json.dumps(credentials), headers=headers)
+    #response.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+    #print("response: ", response.json())
+    #return response.json()['access_token']
+
 
 # Authenticates the user with the provided credentials and API key
 # Cole: API key isn't a parameter required to get a token? Do some user accts have an API key to start with?

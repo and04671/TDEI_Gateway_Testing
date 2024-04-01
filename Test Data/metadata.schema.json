@@ -1,0 +1,123 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "TDEI Dataset upload metadata schema",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "version": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "custom_metadata": {
+            "type": "object",
+            "properties": {},
+            "required": []
+        },
+        "collected_by": {
+            "type": "string"
+        },
+        "collection_date": {
+            "type": "string"
+        },
+        "collection_method": {
+            "type": "string",
+            "enum": [
+                "manual",
+                "transform",
+                "generated",
+                "AV",
+                "others"
+            ]
+        },
+        "data_source": {
+            "type": "string",
+            "enum": [
+                "3rdParty",
+                "TDEITools",
+                "InHouse"
+            ]
+        },
+        "schema_version": {
+            "type": "string"
+        },
+        "valid_from": {
+            "type": "string"
+        },
+        "valid_to": {
+            "type": "string"
+        },
+        "dataset_area": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "features": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "properties": {
+                                "type": "object",
+                                "properties": {},
+                                "required": []
+                            },
+                            "geometry": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "coordinates": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "type",
+                                    "coordinates"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "id",
+                            "properties",
+                            "geometry"
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "type",
+                "features"
+            ]
+        }
+    },
+    "required": [
+        "name",
+        "version",
+        "collected_by",
+        "collection_date",
+        "data_source",
+        "schema_version"
+    ]
+}

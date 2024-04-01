@@ -3,6 +3,8 @@ import requests_mock
 from utilities import *
 import asyncio
 
+
+#Cole: starting completely from scratch here. What is a fixture?
 @pytest.fixture
 async def api_key():
     """

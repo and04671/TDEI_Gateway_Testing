@@ -4,7 +4,6 @@ import json
 base_url = "https://tdei-gateway-stage.azurewebsites.net"
 
 # Refreshes the authentication token using the given API key
-
 async def refresh_token(apikey):
 
     url = base_url + "/api/v1/refresh-token"

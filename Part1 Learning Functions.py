@@ -1,10 +1,19 @@
+import os
 import requests
 import json
+from dotenv import load_dotenv
 
+
+load_dotenv()
+USERNAME = os.getenv('TDEI_un')
+PASSWORD = os.getenv('TDEI_pw')
+
+authendpt = "/api/v1/authenticate"
 base_url = "https://tdei-gateway-stage.azurewebsites.net"
 
-#Cole: these are functions from the readme and older script version. These would seem to work to
-#get authorization
+#Cole: these two are functions from the readme and older script version. These would seem to work to get authorization
+#Cole: This is the level of API calls I am familar with
+
 #async def authenticate():
  #   auth_url = get_api_endpoint('api/v1/authenticate')
   #  credentials = {'username': 'your_username', 'password': 'your_password'}
@@ -18,10 +27,24 @@ base_url = "https://tdei-gateway-stage.azurewebsites.net"
     #return response.json()['new_token']
 
 
+# Authenticates the user with the provided credentials and API key
+# Cole: API key isn't a parameter required to get a token? Do some user accts have an API key to start with?
+async def authenticate(username, password, apiKey):
+    url = base_url + "/api/v1/authenticate"
 
+    payload = json.dumps({
+        "username": "<string>",
+        "password": "<string>"
+    })
+    headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'x-api-key': '{{apiKey}}'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
 
 # Refreshes the authentication token using the given API key
-
 async def refresh_token(apikey):
     url = base_url + "/api/v1/refresh-token"
 
@@ -35,25 +58,6 @@ async def refresh_token(apikey):
     response = requests.request("POST", url, headers=headers, data=payload)
 
     print(response.text)
-
-
-# Authenticates the user with the provided credentials and API key
-# Cole: API key isn't a parameter required to get a token?
-async def authenticate(username, password, apiKey):
-    url = base_url + "/api/v1/authenticate"
-
-    payload = json.dumps({
-        "username": "<string>",
-        "password": "<string>"
-    })
-
-    headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'x-api-key': '{{apiKey}}'
-    }
-
-    response = requests.request("POST", url, headers=headers, data=payload)
 
 
 # OSW

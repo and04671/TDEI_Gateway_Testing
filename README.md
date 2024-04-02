@@ -10,7 +10,7 @@ This document provides guidelines on setting up and testing the utility function
 
 ## Setup
 
-1. **Create and activate a virtual environment (optional but recommended):**
+1. **Create and activate a virtual environment (optional but recommended- Cole did via Pycharm project):**
 
    For Windows:
    ```bash
@@ -83,7 +83,7 @@ Here's a brief explanation of each file and directory in the given list:
    To run a specific test file:
 
    ```bash
-   pytest tests/test_utilities-clifford.py
+   pytest tests/test_utilities.py
    ```
 
 3. **Review the test output:**

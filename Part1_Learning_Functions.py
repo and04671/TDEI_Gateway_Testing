@@ -3,37 +3,48 @@ import requests
 import json
 from dotenv import load_dotenv
 
-
 load_dotenv()
 USERNAME = os.getenv('TDEI_un')
 PASSWORD = os.getenv('TDEI_pw')
 
-authendpt = "/api/v1/authenticate"
 base_url = "https://tdei-gateway-stage.azurewebsites.net"
 
-#Cole: these two are functions from the readme and older script version. These would seem to work to get authorization
-#Cole: This is the level of API calls I am familar with
+#Cole: These functions is from 'gtfs-flex-upload.py' and seems to be yet a third way to authenticate
+def authenticate3(username, password):
+    authendpt = "/api/v1/authenticate"
+    url = base_url + authendpt
+    credentials = {'username': username, 'password': password}
+    headers = {'accept': 'application/json', 'Content-Type': 'application/json'}
+    response = requests.post(url, data=json.dumps(credentials), headers=headers)
+    response.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
+    print("response: ", response.json())
+    return response.json()['access_token']
 
-#async def authenticate():
- #   auth_url = get_api_endpoint('api/v1/authenticate')
-  #  credentials = {'username': 'your_username', 'password': 'your_password'}
-   # response = requests.post(auth_url, json=credentials)
-    #return response.json()['token']
+def list_project_groups(access_token, page_no=1, page_size=50):
+    url = base_url + "/api/v1/project-group"
+    headers = {'Authorization': f'Bearer {access_token}'}
+    params = {'page_no': page_no, 'page_size': page_size}
+    response = requests.get(url, headers=headers, params=params)
+    response.raise_for_status()
+    # Write the response to a JSON file
+    with open('project_groups.json', 'w') as outfile:
+        json.dump(response.json(), outfile)
+    return response.json()
 
-#async def refresh_token(api_key):
- #   refresh_url = get_api_endpoint('api/v1/refresh-token')
-  #  headers = {'x-api-key': api_key}
-   # response = requests.post(refresh_url, headers=headers)
-    #return response.json()['new_token']
 
-#def authenticate(username, password):
- #   url = BASE_URL + AUTH_ENDPOINT
-  #  credentials = {'username': username, 'password': password}
-  #  headers = {'accept': 'application/json', 'Content-Type': 'application/json'}
-   # response = requests.post(url, data=json.dumps(credentials), headers=headers)
-    #response.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
-    #print("response: ", response.json())
-    #return response.json()['access_token']
+
+
+#Cole: These two are functions from the ReadMe. These would seem to work to get authorization
+async def authenticate2():
+    auth_url = get_api_endpoint('api/v1/authenticate')
+    credentials = {'username': 'your_username', 'password': 'your_password'}
+    response = requests.post(auth_url, json=credentials)
+    return response.json()['token']
+async def refresh_token2(api_key):
+    refresh_url = get_api_endpoint('api/v1/refresh-token')
+    headers = {'x-api-key': api_key}
+    response = requests.post(refresh_url, headers=headers)
+    return response.json()['new_token']
 
 
 # Authenticates the user with the provided credentials and API key

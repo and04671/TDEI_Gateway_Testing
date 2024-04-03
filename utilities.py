@@ -1,6 +1,6 @@
-
-#Cole: these functions are obviously incomplete. Admin users do not require an API key, functions need option to leav that out
-#most functions also don't call for a bearer token
+#Cole: these functions are obviously incomplete.
+# Admin users require a bearer token vs. require an API key; functions need option to 'swap' those out
+# Most functions don't call for a bearer token
 
 import requests
 import json
@@ -44,7 +44,6 @@ async def authenticate(username, password, apiKey):
 # OSW
     
 # Uploads an OpenSidewalks (OSW) dataset pre-release with given parameters
-
 async def upload_osw_dataset(
         apiKey, 
         dataset_id, 

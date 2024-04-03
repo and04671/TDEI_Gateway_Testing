@@ -7,7 +7,7 @@ import os
 #from gtfs-flex-upload-clifford import *
 #from pipelines-clifford import *
 #from Part1_Learning_Functions import *
-from Cole_New_Functions import *
+from new_utilites import *
 
 token = authenticate(USERNAME, PASSWORD)
 project_groups = list_project_groups(token)

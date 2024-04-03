@@ -1,3 +1,5 @@
+#Cole: this script is for trying things/learning how testing works
+
 import os
 import requests
 import json
@@ -30,8 +32,6 @@ def list_project_groups(access_token, page_no=1, page_size=50):
     with open('project_groups.json', 'w') as outfile:
         json.dump(response.json(), outfile)
     return response.json()
-
-
 
 
 #Cole: These two are functions from the ReadMe. These would seem to work to get authorization

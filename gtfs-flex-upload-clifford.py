@@ -1,3 +1,6 @@
+#Cole: and here there's no async anything?
+
+
 import requests
 import json
 import os
@@ -36,10 +39,10 @@ def authenticate(username, password):
 # Function to upload GTFS Flex file
 def upload_gtfs_flex(access_token, file_path, metadata):
     url = BASE_URL + GTFS_FLEX_ENDPOINT
+    #headers sent to API
     headers = {
         'Authorization': f'Bearer {access_token}',
         }
-    
     # Convert metadata to JSON string
     metadata_json = json.dumps(metadata)
     # Prepare the files for the request

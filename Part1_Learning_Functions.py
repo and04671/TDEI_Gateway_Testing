@@ -9,7 +9,7 @@ PASSWORD = os.getenv('TDEI_pw')
 
 base_url = "https://tdei-gateway-stage.azurewebsites.net"
 
-#Cole: These functions is from 'gtfs-flex-upload.py' and seems to be yet a third way to authenticate
+#Cole: These functions are from 'gtfs-flex-upload-clifford.py' and seem to be way to authenticate
 def authenticate3(username, password):
     authendpt = "/api/v1/authenticate"
     url = base_url + authendpt
@@ -40,12 +40,6 @@ async def authenticate2():
     credentials = {'username': 'your_username', 'password': 'your_password'}
     response = requests.post(auth_url, json=credentials)
     return response.json()['token']
-async def refresh_token2(api_key):
-    refresh_url = get_api_endpoint('api/v1/refresh-token')
-    headers = {'x-api-key': api_key}
-    response = requests.post(refresh_url, headers=headers)
-    return response.json()['new_token']
-
 
 # Authenticates the user with the provided credentials and API key
 # Cole: API key isn't a parameter required to get a token? Do some user accts have an API key to start with?

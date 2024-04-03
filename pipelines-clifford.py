@@ -1,3 +1,8 @@
+#Cole: I understand this script uses asyncio and httpx vs. requests.
+#Cole: what is an async function, and more so why use one?
+#Cole: it seems to import functions from utilities and run them async
+
+
 import pytest
 import requests_mock
 from utilities import *

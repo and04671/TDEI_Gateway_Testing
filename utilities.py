@@ -1,3 +1,7 @@
+
+#Cole: these functions are obviously incomplete. Admin users do not require an API key, functions need option to leav that out
+#most functions also don't call for a bearer token
+
 import requests
 import json
 

@@ -55,12 +55,12 @@ Here's a brief explanation of each file and directory in the given list:
 - `TDEI-python-lib-osw-validation`: A directory that likely contains a Python library project for validating OSW (Open Street Walk) data.
 - `TDEI-python-osw-validation`: A directory containing a Python project or scripts for OSW data validation.
 
-- `pipelines-clifford.py`: A Python file that likely contains code defining data processing or validation pipelines, perhaps for the workflow illustrated in the API interactions.
-- `test_utilities.py`: A Python file containing test cases for the utility functions defined in `utilities.py`, likely using a framework like pytest.
-- `utilities.py`: A Python file containing utility functions, they interact with the TDEI Gateway API, as described earlier.
-- 'new_utilites.py' : A Python file contiaiing fixed utility functions to interact with the Gateway API
-- 'Part1_Learning_Functions.py': A Python file for learning new testing procedures
-- 'test_coleinitial.py': Just another test Python file
+- `pipelines-clifford.py`: A Clifford Python file that likely contains code defining data processing or validation pipelines, perhaps for the workflow illustrated in the API interactions.
+- `test_utilities.py`: A Clifford Python file containing test cases for the utility functions defined in `utilities.py`, likely using a framework like pytest.
+- `utilities.py`: A Clifford Python file containing utility functions, they interact with the TDEI Gateway API, as described earlier.
+- `new_utilites.py` : A Cole Python file contiaiing fixed utility functions to interact with the Gateway API
+- `Part1_Learning_Functions.py`: A Cole Python file for learning new testing procedures
+- `test_coleinitial.py`: A Cole Python test file
 
 ## Writing Tests
 

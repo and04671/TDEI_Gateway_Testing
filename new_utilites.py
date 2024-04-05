@@ -1,30 +1,23 @@
 #Cole: this script contains working edited versions of the utilities.py file for the current API release
-
 import os
 import requests
 import json
 from dotenv import load_dotenv
 
 load_dotenv()
-USERNAME = os.getenv('TDEI_un')
-PASSWORD = os.getenv('TDEI_pw')
+USERNAME = os.getenv('stage_user')
+PASSWORD = os.getenv('stage_user_pw')
+KEY = os.getenv('stage_user_key')
+
+print(KEY)
 
 base_url = "https://tdei-gateway-stage.azurewebsites.net"
 
-#function authenticates credidentials and returns access token, originally from gtfx-flex-upload-clifford.py
-#works
-def authenticate(username, password):
-    authendpt = "/api/v1/authenticate"
-    url = base_url + authendpt
-    credentials = {'username': username, 'password': password}
-    headers = {'accept': 'application/json', 'Content-Type': 'application/json'}
-    response = requests.post(url, data=json.dumps(credentials), headers=headers)
-    response.raise_for_status()  # Raises an HTTPError if the HTTP request returned an unsuccessful status code
-    print("response: ", response.json())
-    return response.json()['access_token']
 
-#modified authentication function from utilities.py
-def authenticate2(username, password):
+#General Functions
+
+# Authenticates the user with the provided credentials
+def authenticate(username, password):
     url = base_url + "/api/v1/authenticate"
     payload = json.dumps({
     "username": username,
@@ -32,110 +25,30 @@ def authenticate2(username, password):
     headers = {
     'Content-Type': 'application/json',
     'accept': 'application/json'}
-
     response = requests.request("POST", url, headers=headers, data=payload)
     return response.json()['access_token']
 
-# Authenticates the user with the provided credentials and API key
-#modified from utlities.py
-def list_osw_versions(access_token):
-
-    url = base_url + "/api/v1/osw/versions"
-
-    payload = {}
-    headers = {
-    'Accept': 'application/json',
-    'Authorization': f'Bearer {access_token}'}
-
-    response = requests.request("GET", url, headers=headers, data=payload)
-    return response.json()['versions']
-
-
-
 # Refreshes the authentication token using the given API key
-#modified from utlities.py
-def refresh_token2(access_token):
+# this requires the refresh token generated in authentication, not the access token!
+def refresh_token(refresh_token):
     url = base_url + "/api/v1/refresh-token"
 
     payload = "<string>"
     headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': f'Bearer {access_token}'}
+        'Authorization': f'Bearer {refresh_token}'}
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    #return response.json()['versions']
     print(response.text)
-
-async def get_upload_status2(apiKey, dataset_id):
-    url = base_url + "/api/v1/osw/upload/status/{{dataset_id}}"
-
-    payload = {}
-    headers = {
-        'Accept': 'application/json',
-        'x-api-key': '{{apiKey}}'
-    }
-
-    response = requests.request("GET", url, headers=headers, data=payload)
-
-    print(response.text)
-
-#testing out the above modified functions
-x = authenticate2(USERNAME, PASSWORD)
-print(x)
-y = list_osw_versions(x)
-print (y)
-z = refresh_token2(x)
-
-######################################################
-# unmodified utilities functions below this line
-# Cole: these functions are yet obviously incomplete.
-# Admin users require a bearer token vs. require an API key; functions need option to 'swap' those out
-# Most functions don't call for a bearer token
-
-async def refresh_token(apikey):
-
-    url = base_url + "/api/v1/refresh-token"
-
-    payload = "<string>"
-    headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'x-api-key': '{{apiKey}}'
-    }
-
-    response = requests.request("POST", url, headers=headers, data=payload)
-
-    print(response.text)
-
-# Authenticates the user with the provided credentials and API key
-async def authenticate(username, password, apiKey):
-    url = base_url + "/api/v1/authenticate"
-
-    payload = json.dumps({
-        "username": "<string>",
-        "password": "<string>"
-    })
-
-    headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'x-api-key': '{{apiKey}}'
-    }
-
-    response = requests.request("POST", url, headers=headers, data=payload)
-
 
 # OSW
 
 # Uploads an OpenSidewalks (OSW) dataset pre-release with given parameters
-async def upload_osw_dataset(
-        apiKey,
-        dataset_id,
-        metadata,
-        changeset,
-        bearerToken
-):
+#ok this function is totally wrong at this point...
+#should return a dataset ID
+def upload_osw_dataset(access_token, project_id, service_id, file_path, metadata, changeset):
+
     url = base_url + "/api/v1/osw/upload/<string>/<string>?derived_from_dataset_id={{dataset_id}}"
 
     payload = {
@@ -149,61 +62,62 @@ async def upload_osw_dataset(
     headers = {
         'Content-Type': 'multipart/form-data',
         'Accept': 'application/text',
-        'Authorization': 'Bearer {{bearerToken}}'
+        'Authorization': f'Bearer {access_token}'
     }
-
+    # Convert metadata to JSON string
+    metadata_json = json.dumps(metadata)
+    # Prepare the files for the request
+    with open(file_path, 'rb') as file:
+        files = {
+            'meta': (None, metadata_json, 'application/json'),
+            'file': (os.path.basename(file_path), file, 'application/octet-stream')
+        }
     response = requests.request("POST", url, headers=headers, data=payload, files=files)
 
     print(response.text)
 
-
+#this works!
 # Retrieves the upload status of an OSW dataset using its dataset ID
-
-async def get_upload_status(apiKey, dataset_id):
-    url = base_url + "/api/v1/osw/upload/status/{{dataset_id}}"
-
+def get_upload_status(access_token, dataset_id):
+    url = base_url + "/api/v1/osw/upload/status/" + dataset_id
     payload = {}
     headers = {
         'Accept': 'application/json',
-        'x-api-key': '{{apiKey}}'
-    }
-
+        'Authorization': f'Bearer {access_token}'}
     response = requests.request("GET", url, headers=headers, data=payload)
-
     print(response.text)
 
-
 # Publishes the specified OSW dataset to make it available for users
-
-async def publish_osw_dataset(apiKey, dataset_id):
-    url = base_url + "/api/v1/osw/publish/{{dataset_id}}"
-
+#works
+def publish_osw_dataset(access_token, dataset_id):
+    url = base_url + "/api/v1/osw/publish/" + dataset_id
     payload = {}
     headers = {
         'Accept': 'application/text',
-        'x-api-key': '{{apiKey}}'
-    }
-
+        'Authorization': f'Bearer {access_token}'}
     response = requests.request("POST", url, headers=headers, data=payload)
-
     print(response.text)
 
-
 # Retrieves the publication status of an OSW dataset using its dataset ID
-
-async def get_publish_status(apiKey, dataset_id):
-    url = base_url + "/api/v1/osw/publish/status/{{dataset_id}}"
-
+#trying to see if can work for either token or API
+def get_publish_status(access_token, dataset_id):
+    url = base_url + "/api/v1/osw/publish/status/" + dataset_id
     payload = {}
     headers = {
         'Accept': 'application/json',
-        'x-api-key': '{{apiKey}}'
+        'Authorization': f'Bearer {access_token}'
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
-
     print(response.text)
 
+#x= authenticate(USERNAME,PASSWORD)
+#get_publish_status(,x)
+######################################################
+# unmodified utilities functions below this line
+# Cole: these functions are yet obviously incomplete.
+# Admin users require a bearer token vs. require an API key; functions need option to 'swap' those out
+# Most functions don't call for a bearer token
 
 # Checks the validation status of an OSW dataset using its dataset ID
 

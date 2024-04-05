@@ -5,6 +5,7 @@ import asyncio
 
 
 #Cole: starting completely from scratch here. What is a fixture?
+#a fixture is like a constant throughout the test
 @pytest.fixture
 async def api_key():
     """
